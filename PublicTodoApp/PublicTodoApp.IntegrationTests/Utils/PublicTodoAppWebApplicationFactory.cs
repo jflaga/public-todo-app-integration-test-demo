@@ -23,7 +23,7 @@ public class PublicTodoAppWebApplicationFactory : WebApplicationFactory<Program>
 
         builder.ConfigureServices(services =>
         {
-            configuration["ConnectionStrings:Default"] = databaseFixture.TestConnectionString;
+            configuration["ConnectionStrings:DefaultConnection"] = databaseFixture.TestConnectionString;
 
             //services.AddSingleton<IStartupFilter>(new AutoAuthorizeStartupFilter());
         });
