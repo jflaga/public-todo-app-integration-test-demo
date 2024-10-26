@@ -35,4 +35,26 @@ public class TodoController : ControllerBase
         todoDbContext.Todos.Add(todo);
         todoDbContext.SaveChanges();
     }
+
+    //[HttpPost]
+    //public Guid Create(TodoInputDto inputDto)
+    //{
+    //    var todo = new TodoList
+    //    {
+    //        Name = inputDto.Name,
+    //        Author = inputDto.Author
+    //    };
+    //    foreach (var taskInputDto in inputDto.Tasks)
+    //    {
+    //        todo.Tasks.Add(new TodoTask
+    //        {
+    //            Task = taskInputDto.Task,
+    //            CreationDateTime = DateTimeOffset.UtcNow
+    //        });
+    //    }
+    //    todoDbContext.Todos.Add(todo);
+    //    todoDbContext.SaveChanges();
+
+    //    return todo.Id;
+    //}
 }

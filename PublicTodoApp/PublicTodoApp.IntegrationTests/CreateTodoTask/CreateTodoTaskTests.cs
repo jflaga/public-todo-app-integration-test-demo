@@ -24,7 +24,7 @@ public class CreateTodoTaskTests : IClassFixture<PublicTodoAppWebApplicationFact
     {
         var createTodoPayload = new TodoList
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Parse("11111111-1111-1111-1111-111111111111"),
             Name = "My Todo List",
             Author = "Jboy",
             Tasks =

@@ -1,6 +1,7 @@
 ﻿using Azure.Core;
 using Microsoft.OpenApi.Models;
 using PublicTodoApp._DomainLayer;
+using PublicTodoApp.Controllers.Dtos;
 using PublicTodoApp.IntegrationTests.Utils;
 using System.Net;
 using System.Net.Http.Headers;
@@ -24,7 +25,7 @@ public class CreateTodoTests : IClassFixture<PublicTodoAppWebApplicationFactory>
     {
         var payload = new TodoList
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Parse("11111111-1111-1111-1111-111111111111"),
             Name = "My Todo List",
             Author = "Jboy",
             Tasks = 
@@ -65,4 +66,49 @@ public class CreateTodoTests : IClassFixture<PublicTodoAppWebApplicationFactory>
             Assert.Equal(expectedTask.Task, actualTask.Task);
         }
     }
+
+    //[Fact]
+    //public async Task CreateTodo_HappyPath_Succeeds()
+    //{
+    //    var payload = new TodoInputDto
+    //    {
+    //        Name = "My Todo List",
+    //        Author = "Jboy",
+    //        Tasks =
+    //        [
+    //            new TodoTaskInputDto {
+    //                Task = "Read Mere Christianity"
+    //            },
+    //            new TodoTaskInputDto {
+    //                Task = "Read Learning DDD"
+    //            },
+    //        ]
+    //    };
+    //    var client = webAppFactory.CreateClient();
+
+    //    var response = await client.PostAsJsonAsync("/api/todos", payload);
+    //    var responseContent = await response.Content.ReadAsStringAsync();
+    //    var todoId = Guid.Parse(responseContent);
+    //    Assert.True(response.IsSuccessStatusCode);
+    //    await AssertThatTodoAndTasksWasSaved(payload, todoId);
+    //}
+
+    //private async Task AssertThatTodoAndTasksWasSaved(TodoInputDto expectedTodo, Guid todoId)
+    //{
+    //    var client = webAppFactory.CreateClient();
+    //    var response = await client.GetAsync($"/api/todos/{todoId}");
+    //    var responseContent = await response.Content.ReadAsStringAsync();
+    //    var actualTodo = JsonSerializer.Deserialize<TodoList>(responseContent, JsonWebOptions);
+    //    Assert.NotNull(actualTodo);
+    //    Assert.Equal(expectedTodo.Name, actualTodo.Name);
+    //    Assert.Equal(expectedTodo.Author, actualTodo.Author);
+
+    //    Assert.Equal(expectedTodo.Tasks.Count(), actualTodo.Tasks.Count);
+
+    //    foreach (var actualTask in actualTodo.Tasks)
+    //    {
+    //        var expectedTask = actualTodo.Tasks.FirstOrDefault(x => x.Id == actualTask.Id);
+    //        Assert.Equal(expectedTask.Task, actualTask.Task);
+    //    }
+    //}
 }
