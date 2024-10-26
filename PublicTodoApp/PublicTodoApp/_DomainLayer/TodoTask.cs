@@ -6,4 +6,6 @@ public class TodoTask
     public string Task { get; set; }
     public DateTimeOffset CreationDateTime { get; set; }
     public DateTimeOffset CompletionDateTime { get; set; }
+
+    public Guid TodoListId { get; set; }
 }

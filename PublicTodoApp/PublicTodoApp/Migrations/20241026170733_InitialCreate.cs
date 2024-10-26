@@ -25,28 +25,29 @@ namespace PublicTodoApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TodoTask",
+                name: "TodoTasks",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Task = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreationDateTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     CompletionDateTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    TodoListId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    TodoListId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TodoTask", x => x.Id);
+                    table.PrimaryKey("PK_TodoTasks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TodoTask_Todos_TodoListId",
+                        name: "FK_TodoTasks_Todos_TodoListId",
                         column: x => x.TodoListId,
                         principalTable: "Todos",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_TodoTask_TodoListId",
-                table: "TodoTask",
+                name: "IX_TodoTasks_TodoListId",
+                table: "TodoTasks",
                 column: "TodoListId");
         }
 
@@ -54,7 +55,7 @@ namespace PublicTodoApp.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "TodoTask");
+                name: "TodoTasks");
 
             migrationBuilder.DropTable(
                 name: "Todos");

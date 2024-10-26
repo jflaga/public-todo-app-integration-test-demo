@@ -10,4 +10,5 @@ public class TodoDbContext : DbContext
     }
 
     public DbSet<TodoList> Todos { get; set; }
+    public DbSet<TodoTask> TodoTasks { get; set; }
 }

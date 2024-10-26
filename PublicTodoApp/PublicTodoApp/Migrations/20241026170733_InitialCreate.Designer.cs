@@ -12,7 +12,7 @@ using PublicTodoApp._DataLayer;
 namespace PublicTodoApp.Migrations
 {
     [DbContext(typeof(TodoDbContext))]
-    [Migration("20241026161801_InitialCreate")]
+    [Migration("20241026170733_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -60,21 +60,23 @@ namespace PublicTodoApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("TodoListId")
+                    b.Property<Guid>("TodoListId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TodoListId");
 
-                    b.ToTable("TodoTask");
+                    b.ToTable("TodoTasks");
                 });
 
             modelBuilder.Entity("PublicTodoApp._DomainLayer.TodoTask", b =>
                 {
                     b.HasOne("PublicTodoApp._DomainLayer.TodoList", null)
                         .WithMany("Tasks")
-                        .HasForeignKey("TodoListId");
+                        .HasForeignKey("TodoListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PublicTodoApp._DomainLayer.TodoList", b =>
