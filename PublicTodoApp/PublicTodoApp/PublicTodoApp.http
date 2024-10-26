@@ -1,0 +1,6 @@
+@PublicTodoApp_HostAddress = http://localhost:5214
+
+GET {{PublicTodoApp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
