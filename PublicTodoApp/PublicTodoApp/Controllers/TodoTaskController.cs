@@ -5,8 +5,9 @@ using PublicTodoApp._DomainLayer;
 using PublicTodoApp.Controllers.Dtos;
 
 namespace PublicTodoApp.Controllers;
+
 [ApiController]
-[Route("[controller]")]
+[Route("api/todotasks")]
 public class TodoTaskController : ControllerBase
 {
     private readonly TodoDbContext todoDbContext;

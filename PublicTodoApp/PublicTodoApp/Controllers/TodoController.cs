@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PublicTodoApp._DataLayer;
 using PublicTodoApp._DomainLayer;
 using PublicTodoApp.Controllers.Dtos;
 
 namespace PublicTodoApp.Controllers;
+
 [ApiController]
-[Route("[controller]")]
+[Route("api/todos")]
 public class TodoController : ControllerBase
 {
     private readonly TodoDbContext todoDbContext;
@@ -19,6 +21,12 @@ public class TodoController : ControllerBase
     public IEnumerable<TodoList> Get()
     {
         return todoDbContext.Todos;
+    }
+
+    [HttpGet("{todoId}")]
+    public TodoList Get([FromRoute] Guid todoId)
+    {
+        return todoDbContext.Todos.Include(x => x.Tasks).SingleOrDefault(x => x.Id == todoId);
     }
 
     [HttpPost]
