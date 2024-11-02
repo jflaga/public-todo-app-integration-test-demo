@@ -1,6 +1,5 @@
+using DataCollectorService;
 using MassTransit;
-using Microsoft.EntityFrameworkCore;
-using PublicTodoApp._DataLayer;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,20 +11,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<TodoDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))); ;
-
 builder.Services.AddMassTransit(x =>
 {
     x.AddConsumers(Assembly.GetExecutingAssembly());
-
-    // TODO: change to Transactional Outbox??
-    x.AddConfigureEndpointsCallback((context, name, cfg) =>
-    {
-        cfg.UseDelayedRedelivery(r => r.Intervals(TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(15), TimeSpan.FromMinutes(30)));
-        cfg.UseMessageRetry(r => r.Immediate(5));
-        cfg.UseInMemoryOutbox(context);
-    });
 
     x.UsingRabbitMq((context, cfg) =>
     {
@@ -35,6 +23,8 @@ builder.Services.AddMassTransit(x =>
         cfg.ConfigureEndpoints(context);
     });
 });
+
+builder.Services.AddScoped<BooksDataService>();
 
 var app = builder.Build();
 
@@ -52,5 +42,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-public partial class Program { }

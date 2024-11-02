@@ -20,7 +20,7 @@ public class TodoController : ControllerBase
     [HttpGet]
     public IEnumerable<TodoList> Get()
     {
-        return todoDbContext.Todos;
+        return todoDbContext.Todos.Include(x => x.Tasks);
     }
 
     [HttpGet("{todoId}")]

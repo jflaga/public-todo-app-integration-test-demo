@@ -1,0 +1,21 @@
+version: '3.8'
+name: public-todo-app
+
+services:
+  rabbitmq:
+    container_name: rabbitmq-public-todo-app
+    image: rabbitmq:management-alpine
+    healthcheck:
+        test: rabbitmq-diagnostics -q ping
+        interval: 30s
+        timeout: 30s
+        retries: 3
+    networks: 
+      - public-todo-app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  public-todo-app-network:
+    external: true
